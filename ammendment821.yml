@@ -1,0 +1,150 @@
+---
+imports:
+  - datetime
+---
+mandatory: true
+question: |
+  What is Amendment 821?
+subquestion: |
+  Congress recently passed a law making certain incarcerated persons who were convicted of a federal offense, eligible for a sentencing reduction.
+  
+  We may be able to help you if you meet the criteria that has been laid out by the Government. 
+continue button field: user_saw_intro
+---
+mandatory: true
+question: |
+  Who is eligible for the reduction?
+subquestion: |
+  1. <u>Prior criminal history.</u>  When you were sentenced: did you have NO prior criminal points on your record? In other words, you have never been previously convicted of any crimes...
+  2. <u>Status offender points.</u> At the time you committed the current offense, were you also under any criminal justice sentence? This includes: probation, parole, supervised release, imprisonment, work release, or escape status.
+  
+  The law also imposes additional requirements eligibility that must also be met. To review those requirements, [Please Click Here.](https://www.ussc.gov/guidelines/amendment/821)
+
+  If you believe that you may qualify, please click continue.
+continue button field: user_may_qualify
+---
+mandatory: true
+question: |
+  What can we do?
+subquestion: |
+  Most United States District Courts have established a processes to determine who may be eligible for the reduction, and if so, have appointed the legal representation. 
+  
+  However, this process has not been perfect and some persons may have not been identified yet. 
+  
+  We can connect you with your Federal Public Defender’s Office, or with the Clerk’s Office of your United States District Court, so that they can assist you in determining eligibility, and if so, these people will be able to represent you before the Court.
+continue button field: what_we_do
+---
+mandatory: true
+field: waiver
+question: |
+  Now what?
+subquestion: |
+  By proceeding, you acknowledge that **no legal advice** has been provided, and that we are **not your legal representatives**.
+  
+  We are only providing you with information and the means to communicate your belief that you may be eligible for a sentencing reduction.
+  
+  If you understand and agree, please proceed.
+buttons:
+  - "I understand": understands
+---
+mandatory: true
+question: |
+  Please fill out the following information:
+fields:
+  - Name of the person completing this form: completer_name
+  - Email (to receive information after completion): completer_email
+---
+mandatory: true
+question: |
+  Information of the person requesting the sentencing reduction:
+fields:
+  - Name of the person requesting the sentencing reduction: defendant_name
+  - District Court convicted in: court_district
+  - Case number: case_number
+  - USM number: inmate_id
+  - FOB Institution in which the person is currently located: prison_loc
+  
+under: |
+ See [Court Website Links](https://www.uscourts.gov/about-federal-courts/federal-courts-public/court-website-links) for a list of district courts.
+
+ See the [Federal Bureau of Prisons Website](https://www.bop.gov/locations/list.jsp) for a list of FOB Institutions
+---
+mandatory: true
+question: |
+  Please mark those that apply:
+fields:
+  - I believe that I am eligible for a sentencing reduction because: reasons_for_reduction
+    datatype: checkboxes
+    choices:
+      - I had zero criminal history points at the moment I committed the instant offense.
+      - I was under a criminal sentence (including probation, supervised release, etc.) at the moment I committed the instant offense.
+---
+mandatory: true
+question: |
+  Please review the defendant's information below. Does this look correct?
+  
+  * Defendant Name: ${ defendant_name }
+  * District Court: ${ court_district }
+  * Case Number: ${ case_number }
+  * USM number: ${ inmate_id }
+  * FOB Institution ${ prison_loc }
+yesno: def_info_correct
+---
+mandatory: def_info_correct == False
+question: Please reload the website if you wish to change any of the information
+---
+mandatory: def_info_correct == True
+question: |
+ Please review your own information below. Does this look correct?
+ 
+ * "Filer's name": ${ completer_name }
+ * "Filer's email:" ${ completer_email }
+yesno: completer_info_correct
+---
+mandatory: completer_info_correct == False
+question: Please reload the website if you wish to change any of the information
+---
+mandatory: completer_info_correct == True
+question: |
+  You are aware that by submitting, you will be notifying a Federal Public Defender’s Office of your belief that you may be eligible for a sentencing reduction.
+
+  They will then contact you will further information about your notification.
+field: wants_to_send
+buttons:
+  - I am aware: yes
+  - I have changed my mind: no
+---
+mandatory: wants_to_send == "no"
+question: |
+  No problem. If you change your mind back and would like to fill out the form again, please reload the website.
+buttons:
+  - Exit: exit
+---
+mandatory: wants_to_send == "yes"
+question: |
+  Sent to Filer
+subquestion: |
+  We have sent your request to the Federal Public Defender's Office who will contact you as soon as possible.
+  
+  You may also contact them at your convenience to follow-up at: 
+  
+  <p style="text-align: center;">
+  FPD Office for the district of ${ court_district }
+  (123) 456-7890
+  
+  Or via email at: EXAMPLE@FPD.gov
+  </p>
+  
+  Your submission number is: ${ sub_letters }-${ sub_date }
+  
+continue button field: user_saw_outro
+---
+code: |
+  sub_letters = defendant_name[:2]
+  sub_date = datetime.date.today().strftime("%m%d%y")
+---
+mandatory: true
+question:
+  Thank you for using our system.
+buttons:
+  - Exit: exit

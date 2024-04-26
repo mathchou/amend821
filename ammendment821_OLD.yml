@@ -1,0 +1,123 @@
+---
+mandatory: true
+question: |
+  Welcome to the interview.
+subquestion: |
+  This questionaire is designed to draft a letter requesting a sentence reduction as part of Amendment 821 for "Zero-Point" Offenders convicted of a non-violent crime.
+continue button field: user_saw_intro
+---
+mandatory: true
+field: waiver
+question: |
+  Your use of this system does not
+  mean that you have a lawyer.  Do
+  you understand this?
+buttons:
+  - "I understand": understands
+  - "I do not understand": does not understand
+  - "I'm not sure": unsure
+---
+mandatory: waiver != 'understands'
+question: Please restart, re-read, and agree to the previous statement if you would like to continue.
+buttons:
+  - Exit: exit
+---
+mandatory: true
+question: "What is the defendant's name?"
+fields:
+  - no label: defendant_name
+---
+mandatory: true
+question: |
+  First, please answer a series of questions to determine whether this defendant is eligible for the sentence reduction from Ammendment 821.
+fields:
+  - "Is this defendant a Zero Point Offender, having no previous criminal history?": zero_point
+    datatype: noyesradio
+  - "Is this defendant serving time for a violent crime?": violent_crime
+    datatype: yesnoradio
+---
+mandatory: zero_point or violent_crime
+question: |
+  I am sorry, this form is only for defendants who are serving time for a non-violent offense and have no prior criminal history.
+buttons:
+  - Exit: exit
+---
+mandatory: true
+question: "What is the case number for the defendant?"
+fields:
+  - no label : case_number
+---
+mandatory: true
+question: "What city and state is the defendant currently imprisoned?"
+fields:
+  - City: prison_city
+  - State: prison_state
+---
+mandatory: true
+question: What is the inmate ID of the defendant?
+fields:
+  - no label: inmate_id
+---
+mandatory: true
+question: Which district court oversees this case?
+fields:
+  - court district: court_district
+  - U.S. attorney office address: us_attorney_office_address
+under: See [Court Website Links](https://www.uscourts.gov/about-federal-courts/federal-courts-public/court-website-links) for a list of district courts.
+---
+mandatory: true
+question: What is the mailing address to send inmate mail to the defendant?
+fields:
+  - prison address: prison_address
+under: See the [Federal Bureau of Prisons Website](https://www.bop.gov/locations/list.jsp) for a list of prisons and the mailing address to send inmates mail.
+---
+mandatory: true
+question: |
+  You should take the following NEXT STEPS:
+  
+  1. Review the pdf generated on the next page.
+  
+  2. Print and mail two copies of this document to the inmate.
+  
+  3. The inmate must **date** and **sign** the second page themselves before mailing both copies to: ${ court_district }
+  
+continue button field: user_saw_next_steps
+---
+mandatory: true
+question: |
+  Here is your document.
+attachment:
+  name: Your letter
+  filename: letter
+  docx template file: Amendment_821_-_template.docx
+  valid formats:
+    - pdf
+    - docx
+subquestion: |
+  Does it meet your approval? (Be sure to **download** or **email** copies before clicking below.)
+yesno: user_approves
+---
+mandatory: not user_approves
+question: |
+  We're sorry you are not satisfied with our automatically generated document. If you would like to change your answers please reload the questionaire.
+buttons:
+  - Exit: exit
+---
+mandatory: true
+question: |
+  **Further Instructions:** 
+  
+  1. Print and mail two copies of this document to the inmate.
+  
+  2. The inmate must **date** and **sign** the second page themselves before mailing both copies to: ${ court_district }
+  
+attachment:
+  name: Your letter
+  filename: letter
+  docx template file: Amendment_821_-_template.docx
+  valid formats:
+    - pdf
+    - docx
+  
+buttons:
+  - Exit: exit
