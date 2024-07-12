@@ -1,6 +1,13 @@
 # Create docassemble docker server on home computer
 
-We will start from scratch in this secttion
+We will start from scratch in this section
+
+## Computer configuration help
+
+  - In order to stop docker from taking all the RAM, see here: [Useful links:
+Freeing up RAM from vmmem](https://stackoverflow.com/questions/64165192/stopping-vmmem-from-using-ram).
+
+## Starting the container and server
 
   1. We want to start a container with a persistent volume to export data. See [https://docassemble.org/docs/docker.html#persistent](https://docassemble.org/docs/docker.html#persistent)
      - Code to run: `docker run --env-file=C:/Users/mokec/PycharmProjects/Ammendment_821/env.list -v dabackup:/usr/share/docassemble/backup -d -p 80:80 -p 443:443 --name amend821host --restart always --stop-timeout 600 jhpyle/docassemble`
