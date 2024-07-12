@@ -1,6 +1,6 @@
 # Create docassemble docker server on home computer
 
-We will start from scratch in this section
+We will start from scratch in this section. Note that we are simply summarizing relevant info from [https://docassemble.org/docs/docker.html](https://docassemble.org/docs/docker.html). See that link for more complete information.
 
 ## Computer configuration help
 
