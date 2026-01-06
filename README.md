@@ -7,11 +7,13 @@ If there are issues with starting the container
 `docker run --env-file=C:/Users/mokec/PycharmProjects/Ammendment_821/env.list -v dabackup:/usr/share/docassemble/backup -d -p 80:80 -p 443:443 --name amend821host --restart always --stop-timeout 600 jhpyle/docassemble`
 such as "daemon requires ..." try stopping and restarting docker:
 
-`docker info
+```
+docker info
 sudo systemctl stop docker
 sudo systemctl stop docker.socket
 sudo systemctl start docker.socket
-sudo systemctl start docker`
+sudo systemctl start docker
+```
 
 ## Outline
   - buy amazon lightsail instance of correct power (RAM/CPU)
